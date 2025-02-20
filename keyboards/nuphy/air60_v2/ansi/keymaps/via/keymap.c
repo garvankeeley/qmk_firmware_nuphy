@@ -22,15 +22,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // layer 0 Mac
 [0] = LAYOUT(
-	KC_ESC, 	KC_1,   	KC_2,   	KC_3,  		KC_4,   	KC_5,   	KC_6,   	KC_7,   	KC_8,   	KC_9,  		KC_0,   	KC_MINS,	KC_EQL, 	KC_BSPC,
+	KC_GRV, 	KC_1,   	KC_2,   	KC_3,  		KC_4,   	KC_5,   	KC_6,   	KC_7,   	KC_8,   	KC_9,  		KC_0,   	KC_MINS,	KC_EQL, 	KC_BSPC,
 	KC_TAB, 	KC_Q,   	KC_W,   	KC_E,  		KC_R,   	KC_T,   	KC_Y,   	KC_U,   	KC_I,   	KC_O,  		KC_P,   	KC_LBRC,	KC_RBRC, 	KC_BSLS,
-	KC_CAPS,	KC_A,   	KC_S,   	KC_D,  		KC_F,   	KC_G,   	KC_H,   	KC_J,   	KC_K,   	KC_L,  		KC_SCLN,	KC_QUOT, 	            KC_ENT,
+	KC_RCTL,	KC_A,   	KC_S,   	KC_D,  		KC_F,   	KC_G,   	KC_H,   	KC_J,   	KC_K,   	KC_L,  		KC_SCLN,	KC_QUOT, 	            KC_ENT,
 	KC_LSFT,	KC_Z,   	KC_X,   	KC_C,  		KC_V,   	KC_B,   	KC_N,   	KC_M,   	KC_COMM,	KC_DOT,		KC_SLSH,	KC_RSFT,	KC_UP,		KC_DEL,
 	KC_LCTL,	KC_LALT,	KC_LGUI,										KC_SPC, 							KC_RGUI,	MO(1),   	KC_LEFT,	KC_DOWN,    KC_RGHT),
 
 // layer 1 Mac fn
 [1] = LAYOUT(
-	KC_GRV, 	KC_BRID,  	KC_BRIU,  	MAC_TASK, 	MAC_SEARCH, MAC_VOICE,  MAC_DND,  	KC_MPRV,  	KC_MPLY,  	KC_MNXT, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	_______,
+	KC_ESC, 	KC_BRID,  	KC_BRIU,  	MAC_TASK, 	MAC_SEARCH, MAC_VOICE,  MAC_DND,  	KC_MPRV,  	KC_MPLY,  	KC_MNXT, 	KC_MUTE, 	KC_VOLD, 	KC_VOLU, 	_______,
 	_______, 	LNK_BLE1,  	LNK_BLE2,  	LNK_BLE3,  	LNK_RF,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	DEV_RESET,	SLEEP_MODE, BAT_SHOW,
 	_______, 	_______,   	_______,   	_______,  	_______,   	_______,   	_______,   	_______,   	_______,   	_______,  	_______,   	_______,	            _______,
 	MO(2),	    _______,   	_______,   	_______,  	_______,   	_______,   	_______,   	MO(6),   	RGB_SPD,	RGB_SPI,  	_______,	MO(2),  	RGB_VAI,    _______,
@@ -156,3 +156,32 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, A_9,    B_9,    C_9},       //
     {1, A_10,   B_10,   C_10}       //
 };
+
+/// change the TAB to KC_RCTL
+
+// Shift + esc = ~
+const key_override_t o_h = ko_make_basic(MOD_BIT(KC_RCTL), KC_H, KC_LEFT);
+const key_override_t o_j = ko_make_basic(MOD_BIT(KC_RCTL), KC_J, KC_DOWN);
+const key_override_t o_k = ko_make_basic(MOD_BIT(KC_RCTL), KC_K, KC_UP);
+const key_override_t o_l = ko_make_basic(MOD_BIT(KC_RCTL), KC_L, KC_RIGHT);
+const key_override_t o_d = ko_make_basic(MOD_BIT(KC_RCTL), KC_D, KC_BACKSPACE);
+const key_override_t o_sp = ko_make_basic(MOD_BIT(KC_RCTL), KC_SPACE, KC_ENTER);
+const key_override_t o_esc = ko_make_basic(MOD_BIT(KC_RCTL), KC_E, KC_ESC);
+
+const key_override_t o_m = ko_make_basic(MOD_BIT(KC_RCTL), KC_M, KC_MINUS);
+const key_override_t o_u = ko_make_basic(MOD_BIT(KC_RCTL), KC_U, KC_EQUAL);
+const key_override_t o_i = ko_make_basic(MOD_BIT(KC_RCTL), KC_I, KC_LEFT_PAREN);
+const key_override_t o_o = ko_make_basic(MOD_BIT(KC_RCTL), KC_O, KC_RIGHT_PAREN);
+
+const key_override_t o_lt = ko_make_basic(MOD_BIT(KC_RCTL), KC_COMMA, LALT(KC_LEFT));
+const key_override_t o_gt = ko_make_basic(MOD_BIT(KC_RCTL), KC_DOT, LALT(KC_RIGHT));
+
+const key_override_t *k_overrides[] = {
+	&o_h, &o_j, &o_k, &o_l, &o_d, &o_sp,
+    &o_esc,
+    &o_m, &o_u, &o_i, &o_o,
+    &o_lt, &o_gt,
+    NULL
+};
+
+const key_override_t **key_overrides = (const key_override_t**) k_overrides;
